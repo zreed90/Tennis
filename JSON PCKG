@@ -1,0 +1,11 @@
+{
+  "name": "tennis-predictor",
+  "version": "1.0.0",
+  "description": "A web-based tennis match predictor using Markov chains.",
+  "main": "proxy.js",
+  "scripts": {
+    "start": "node proxy.js"
+  },
+  "author": "Your Name",
+  "license": "ISC"
+}
