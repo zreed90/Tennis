@@ -20,18 +20,24 @@ const { URL } = require('url');
 const PORT = process.env.PORT || 3007;
 
 const server = http.createServer(async (req, res) => {
-  // CORS headers — allow the browser to call us
-  res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'GET, OPTIONS');
-  res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+  const reqUrl = new URL(req.url, `http://localhost:${PORT}`);
 
-  if (req.method === 'OPTIONS') {
-    res.writeHead(204);
-    res.end();
+  if (reqUrl.pathname === '/' || reqUrl.pathname === '/index.html') {
+    const fs = require('fs');
+    const path = require('path');
+    const htmlPath = path.join(__dirname, 'Tennis_Markov_Predictor_fixed.html');
+    
+    fs.readFile(htmlPath, (err, content) => {
+      if (err) {
+        res.writeHead(500);
+        res.end('Error loading HTML file');
+      } else {
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.end(content);
+      }
+    });
     return;
   }
-
-  const reqUrl = new URL(req.url, `http://localhost:${PORT}`);
 
   // Health check endpoint
   if (reqUrl.pathname === '/health') {
