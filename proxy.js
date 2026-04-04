@@ -17,7 +17,7 @@ const http = require('http');
 const https = require('https');
 const { URL } = require('url');
 
-const PORT = 3007;
+const PORT = process.env.PORT || 3007;
 
 const server = http.createServer(async (req, res) => {
   // CORS headers — allow the browser to call us
