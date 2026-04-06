@@ -89,3 +89,11 @@ server.listen(PORT, () => {
   console.log(`\n✅ Tennis Predictor proxy running on http://localhost:${PORT}`);
   console.log(`   Now open Tennis_Markov_Predictor_fixed.html in your browser.\n`);
 });
+const start = Date.now();
+
+const upstream = await fetch(target);
+
+const data = await upstream.json();
+
+const latency = Date.now() - start;
+console.log(`API Latency: ${latency} ms`);
